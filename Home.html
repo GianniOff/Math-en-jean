@@ -75,6 +75,27 @@ button.small {
     width: 100%;
     height: 100%;
     border: none;
+    z-index: 999;
+}
+
+/* bouton fermer */
+#close-btn {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#close-btn:hover {
+    background-color: #e74c3c;
 }
 </style>
 
@@ -88,13 +109,15 @@ function showDescription(id) {
 function showIframe(url) {
     document.getElementById("iframe-container").src = url;
     document.getElementById("iframe-container").style.display = "block";
+    document.getElementById("close-btn").style.display = "block"; // afficher le bouton fermer
 }
 
-// Retour au menu
+// Fermer l'iframe et revenir au menu
 function closeIframe() {
     document.getElementById("iframe-container").style.display = "none";
     document.getElementById("iframe-container").src = "";
-    showDescription('introduction'); // ou garder dernière section sélectionnée
+    document.getElementById("close-btn").style.display = "none"; // cacher le bouton
+    showDescription('introduction'); // ou garder la dernière section sélectionnée
 }
 
 function hideAll() {
@@ -162,8 +185,9 @@ window.onload = function() {
 
 <!-- Iframe plein écran -->
 <iframe id="iframe-container"></iframe>
-<!-- Ajouter un bouton de fermeture -->
-<button onclick="closeIframe()" style="position:fixed; top:10px; right:10px; z-index:9999; display:block;">✖ Fermer</button>
+
+<!-- Bouton fermer uniquement quand iframe est affiché -->
+<button id="close-btn" onclick="closeIframe()">✖ Fermer</button>
 
 </body>
 </html>
